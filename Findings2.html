@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Required for responsive websites -->
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>            
+        <title>Word Cloud</title>
+        
+        <meta charset="utf-8">
+
+        <!-- Load d3.js -->
+        <script src="https://d3js.org/d3.v4.js"></script>
+
+        <!-- Load d3-cloud -->
+        <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
+
+        <script src="https://kit.fontawesome.com/f3177059a0.js" crossorigin="anonymous"></script>
+         <link rel='stylesheet' href='MobileNarrStyle.css'> 
+    </head>
+    <body>
+        <div class = 'row'>
+            <div class = 'col-12'>
+                <div class = 'heading'>
+                    <h1>
+                        The Legends' Items
+                    </h1>
+                </div>
+            
+                <div class="topnav">
+                    <a href="index.html">Home</a>
+                    <a href="Findings1.html">Number of Items</a>
+                    <a class="active" href="Findings2.html">Frequency of Items</a>
+                    <a href="Sources.html">Sources</a>
+                    <!-- <a href="#about">About</a> -->
+                  </div>
+              </div>
+        </div>
+        
+        <div class = 'row'>
+            <div class = 'col-12'>
+                <h2>Frequency of Each Item Sorted by the First Game Appearance</h2>
+            </div>  
+        </div>
+        
+        <div class = 'row'>
+            <div class = 'col-12'>
+
+                <div class = 'button-grouping'>
+                    <button onclick="update(zelda1Words)">The Legend of Zelda</button>
+                    <button onclick="update(zelda2Words)">Zelda ii</button>
+                    <button onclick="update(alttpWords)">A Link to the Past</button>
+                    <button onclick="update(linkAwakeWords)">Link's Awakening</button>
+                    <button onclick="update(ootWords)">Ocarina of Time</button>
+                    <button onclick="update(majoraWords)">Majora's Mask</button>
+                    <button onclick="update(seasonsWords)">Oracle of Seasons</button>
+                    <button onclick="update(agesWords)">Oracle of Ages</button>
+                    <button onclick="update(windWords)">Wind Waker</button>
+                    <button onclick="update(fourSwordWords)">Four Swords Adventures</button>
+                    <button onclick="update(minishWords)">Minish Cap</button>
+                    <button onclick="update(twilightWords)">Twilight Princess</button>
+                    <button onclick="update(phantomWords)">Phantom Hourglass</button>
+                    <button onclick="update(spiritWords)">Spirit Tracks</button>
+                    <button onclick="update(skywardWords)">Skyward Sword</button>
+                    <button onclick="update(albwWords)">A Link Between Worlds</button>
+                    <button onclick="update(triHerosWords)">Tri Force Heroes</button>
+                    <button onclick="update(botwWords)">Breath of the Wild</button>
+                </div>
+                
+            <!--<div class = 'center'>-->
+                <div class = 'overflow'>
+                    <!-- Create a div where the graph will take place -->
+                <div id="my_dataviz" class = 'center'></div>
+                </div>
+           <!-- </div>    -->
+            </div>
+        </div>
+
+        <div class = 'row'>
+            <div class = 'col-12'>
+                <h2>Explanation</h2>
+                <div class = "paragraph-border">
+                    <p>
+                        <b>What Is This Word Cloud Showing?</b>
+                    </p>
+                    <p> 
+                        These word clouds illustrate the frequency each item appears across the series, with each word cloud only displaying the items 
+                        introduced in its respective game. The text size of the item in this word cloud directly correlates with how many games the item 
+                        appears in. The text size is equivalent to the number of times the item appeared across the <i>Zelda</i> franchise multiplied by 
+                        10. So, If the item only appears in the game it was introduced, it has a text size of 10, and if the item was used in 6 games across 
+                        the series, such as the shovel, it will have a text size of 60.  
+                    </p>
+                </div>
+                <br>
+                <div class = "paragraph-border">
+                    <p>
+                        <b>What Can We Draw From This?</b>
+                    </p>
+                    <p> 
+                        When looking at each word cloud, you start to notice qualities about each game. For example, 
+                        we can see that </i>Zelda II</i> did not have very many new items, and most of them were not used often. However, 
+                        it was the game to introduce the hammer, an item used frequently in many future games, making the hammer <i>Zelda II</i>’s 
+                        most notable item.   
+                    </p>
+                    <p>
+                        You also notice that <i>A Link to the Past</i> and <i>Ocarina of Time</i> both establish many items that continue to be used 
+                        frequently in following <i>Zelda</i> games. In comparison, later <i>Zelda</i> games do not have nearly as many items that 
+                        appear with such frequency. One reason for this is of course that with each game there are fewer new games following it, and 
+                        so less opportunities for items to be reused (<i>Breath of the Wild</i> obviously isn’t going to have any of its new items 
+                        reused). However, when looking at a game like <i>Wind Waker</i>, which has 9 games following it, only 5 of the 25 items it 
+                        introduced were later reused. Perhaps more items introduced between Majora’s Mask and Breath of the Wild will be used in 
+                        future games down the line, but from this data it becomes apparent that far more of <i>Ocarina of Time</i>, 
+                        <i>A Link to the Past</i>, and the original <i>Legend of Zelda</i>’s items have become staples to the series than any other game’s.
+                    </p>
+                    <p>
+                        Those three classics together seem to have established many of the <i>Legend of Zelda</i> series’ staple items. 
+                        Meanwhile, new games seem to focus more on creating new items for the sake of novelty. This makes sense, as <i>Zelda</i> 
+                        games have a reputation for taking old, established conventions, and working in new novelties to make each game feel fresh 
+                        and unique. 
+                    </p>
+                </div>
+            </div>  
+        </div>
+        <hr>
+        <div class = 'row'>
+            <div class = 'col-12'>
+                <div class = 'center'>
+                    <div class = 'mytooltip'>
+                        <a href="Findings1.html"> <i class="fa-solid fa-circle-arrow-left fa-xl"></i> </a>
+                        <span class="mytooltiptext">Previous Page</span>
+                    </div>
+                    
+                    <div class = 'mytooltip'>
+                        <a href="Sources.html"> <i class="fa-solid fa-circle-arrow-right fa-xl"></i> </a> 
+                        <span class="mytooltiptext">Next Page</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<script>
+
+        // List of words
+    var zelda1Words = [{word: "Dungeon_Map", size: "110"}, {word: "Compass", size: "110"}, {word:"Small_Key", size:"150"}, {word:"Heart_Container", size:"180"}, {word:"Sword", size:"20"}, 
+    {word:"White_Sword", size:"20"}, {word:"Magical_Sword", size:"20"}, {word:"Wooden_Shield", size:"70"}, {word:"Magical_Shield", size:"10"}, {word:"Boomerang", size:"140"}, {word:"Magical_Boomerang", size:"40"}, {word:"Bomb", size:"160"}, 
+    {word:"Bow", size:"150"}, {word:"Silver_Arrow", size:"20"}, {word:"Candle", size:"20"}, {word:"Recorder", size:"10"}, {word:"Food_Enemy_Bait", size:"10"}, {word:"Life_Potion", size:"10"}, {word:"Second_potion", size:"10"}, {word:"Magical_Rod", size:"10"}, {word:"Raft", size:"20"}, 
+    {word:"Book_of_Magic", size:"10"}, {word:"Blue_Ring", size:"10"}, {word:"Red_Ring", size:"10"}, {word:"Step_Ladder", size:"10"}, {word:"Magical_Key", size:"10"}, {word:"Power_Bracelet", size:"70"}]; 
+    
+    var zelda2Words = [{word:"Handy_Glove", size:"10"}, {word:"Hammer", size:"90"}, {word:"Boots", size:"10"}, {word:"Flute", size:"20"}, {word:"Cross", size:"10"}]; 
+    
+    var alttpWords = [{word:"Fighters_Sword", size:"10"}, {word:"Boss_Key", size:"140"}, {word:"Master_Sword", size:"90"}, {word:"Tempered_Sword", size:"10"}, {word:"Golden_Sword", size:"10"}, {word:"Fighters_Shield", size:"10"}, {word:"Fire_Shield", size:"10"}, 
+    {word:"Mirror_Shield", size:"80"}, {word: "Bug_Net", size: "30"}, {word:"Blue_Mail", size:"30"}, {word:"Red_Mail", size:"30"}, {word:"Pegasus_Boots", size:"40"}, {word:"Power_Glove", size:"30"}, {word:"Titans_Mitt", size:"20"}, {word:"Flippers", size:"60"}, {word:"Moon_Pearl", size:"10"}, 
+    {word:"Lamp", size:"20"}, {word:"HookShot", size:"80"}, {word:"Mushroom", size:"10"}, {word:"Magic_Powder", size:"20"}, {word:"Fire_Rod", size:"40"}, {word:"Ice_Rod", size:"30"}, {word:"Book_of_Mudora", size:"10"}, {word:"Shovel", size:"60"}, {word:"Cane_of_Somaria", size:"10"}, 
+    {word:"Cane_of_Byrna", size:"10"}, {word:"Magic_Cape", size:"10"}, {word:"Magic_Mirror", size:"10"}, {word:"Ether_Medallion", size:"10"}, {word:"Quake_Medallion", size:"20"}, {word:"Bombos_Medallion", size:"20"}, {word:"Red_Potion", size:"100"}, {word:"Green_Potion", size:"40"}, 
+    {word:"Blue_Potion", size:"70"}, {word:"Fairy", size:"70"}, {word:"Bee", size:"20"}, {word:"Golden_Bee", size:"20"}, {word:"Piece_of_Heart", size:"110"}, {word: "Bottle", size: "80"}, {word:"Super_Bomb", size:"10"}]; 
+    
+    var linkAwakeWords = [{word:"Koholint_Sword", size:"10"}, {word: "Bomb_Arrow", size: "30"}, {word:"Shield", size:"40"}, {word:"Magic_Rod", size:"10"}, {word:"Ocarina", size:"10"}, {word:"Rocs_Feather", size:"40"}, 
+    {word:"Secret_Medicine", size:"10"}, {word:"Sleepy_Toadstool", size:"10"}];
+    
+    var ootWords = [{word:"Deku_Stick", size:"20"}, {word:"Deku_Nut", size:"20"},{word:"Bombchu", size:"40"}, {word:"Fairy_Ocarina", size:"10"}, {word:"Ocarina_of_Time", size:"20"},  {word: "Slingshot", size: "50"}, {word: "Seed_Satchel", size: "40"},
+    {word:"Magic_Bean", size:"20"}, {word: "Milk", size: "50"}, {word:"Fire_Arrow", size:"30"}, {word:"Ice_Arrow", size:"30"}, {word:"Light_Arrow", size:"40"}, {word:"Longshot", size:"10"}, {word:"Lens_of_Truth", size:"20"}, {word:"Dins_Fire", size:"10"}, {word:"Farores_Wind", size:"10"}, {word:"Nayrus_Love", size:"10"}, 
+    {word:"Kokiri_Sword", size:"20"}, {word:"Giants_Knife", size:"10"}, {word:"Biggorons_Sword", size:"20"}, {word:"Hylian_Shield", size:"50"}, {word: "Goron_Tunic", size: "10"}, 
+    {word: "Zora_Tunic", size: "10"}, {word: "Iron_Boots", size: "30"}, {word: "Hover_Boots", size: "10"}, {word: "Quiver", size: "70"}, {word: "Gorons_Bracelet", size: "10"}, 
+    {word: "Silver_Gauntlets", size: "10"}, {word: "Golden_Gauntlets", size: "10"}, {word: "Bomb_Bag", size: "70"}, {word: "Silver_Scale", size: "10"}, {word: "Golden_Scale", size: "10"}, 
+    {word: "Wallet", size: "60"}, {word: "Gerudo_Token", size: "10"}, {word: "Stone_of_Agony", size: "10"}, {word: "Blue_Fire", size: "10"}, {word: "Fisj", size: "10"}, {word: "Masks", size: "20"}, 
+    {word: "Bug", size: "10"}];
+
+    var majoraWords = [{word: "Razor_Sword", size: "10"}, {word: "Gilded_Sword", size: "10"}, {word: "Heros_Shield", size: "20"}, {word: "Bombers_Notebook", size: "10"}, {word: "Powder_Keg", size: "10"}, {word: "Pictograph_Box", size: "20"}, {word: "Great_Fairys_Sword", size: "10"}];
+
+    var seasonsWords = [{word: "Wooden_Sword", size: "30"}, {word: "Nobel_Sword", size: "20"}, {word: "Iron_Shield", size: "30"}, {word: "Rocs_Cape", size: "20"}, {word: "Ember_Seed", size: "20"}, 
+    {word: "Scent_Seed", size: "20"}, {word: "Pegasus_Seed", size: "20"}, {word: "Gale_Seed", size: "20"}, {word: "Mystery_Seed", size: "20"}, {word: "Rod_of_Seasons", size: "10"}, {word: "Strange_Flute", size: "20"}, 
+    {word: "Dimitris_Flute", size: "20"}, {word: "Mooshs_Flute", size: "20"}, {word: "Rickys_Flute", size: "20"}, {word: "Magnetic_Gloves", size: "10"}, {word: "Fools_Ore", size: "10"}, {word: "Magic_Potion", size: "20"}, 
+    {word: "Huge_Maku_Seed", size: "20"}, {word: "Gasha_Seed", size: "20"}, {word: "Gasha_Nut", size: "20"}, {word: "Members_Card", size: "10"}, {word: "Treasure_Map", size: "10"}, {word: "Ring_Box", size: "20"}, {word: "Magical_Ring", size: "20"}];
+
+    var agesWords = [{word: "Wooden_Sword", size: "30"}, {word: "Nobel_Sword", size: "20"}, {word: "Iron_Shield", size: "30"}, {word: "Ember_Seed", size: "20"}, {word: "Scent_Seed", size: "20"}, 
+    {word: "Pegasus_Seed", size: "20"}, {word: "Gale_Seed", size: "20"}, {word: "Mystery_Seed", size: "20"}, {word: "Strange_Flute", size: "20"}, {word: "Dimitris_Flute", size: "20"}, 
+    {word: "Mooshs_Flute", size: "20"}, {word: "Rickys_Flute", size: "20"}, {word: "Magic_Potion", size: "20"}, {word: "Huge_Maku_Seed", size: "20"}, {word: "Gasha_Seed", size: "20"}, 
+    {word: "Gasha_Nut", size: "20"}, {word: "Ring_Box", size: "20"}, {word: "Magical_Ring", size: "20"}, {word: "Bomb_Flower", size: "10"}, {word: "Book_of_Seals", size: "10"}, {word: "Brother_Emblem", size: "10"}, 
+    {word: "Cheval_Rope", size: "10"}, {word: "Fairy_Powder", size: "10"}, {word: "Harp_of_Ages", size: "10"}, {word: "Island_Chart", size: "10"}, {word: "Mermaid_Suit", size: "10"}, {word: "Seed_Shooter", size: "10"}, {word: "Switch_Hook", size: "10"}, {word: "Long_Hook", size: "10"}];
+
+    var windWords = [{word: "Heros_Sword", size: "10"}, {word: "Telescope", size: "10"}, {word: "Sail", size: "10"}, {word: "Cannon", size: "30"}, {word: "Wind_Waker", size: "10"}, {word: "Grappling_Hook", size: "20"}, 
+    {word: "Tingle_Tuner", size: "10"}, {word: "Tingle_Bottle", size: "10"}, {word: "Deluxe_Picto_Box", size: "10"}, {word: "Magic_Armor", size: "20"}, {word: "Deku_Leaf", size: "10"}, {word: "Spoils_Bag", size: "10"}, 
+    {word: "Bait_Bag", size: "10"}, {word: "Delivery_Bag", size: "10"}, {word: "Pirates_Charm", size: "10"}, {word: "Heros_Charm", size: "10"}, {word: "All_Purpose_Bait", size: "10"}, {word: "Hyoi_Pear", size: "10"}, 
+    {word: "Cabana_Deed", size: "10"}, {word: "Bottled_Water", size: "40"}, {word: "Bottled_Forest_Water", size: "10"}, {word: "Forest_Firefly", size: "10"}, {word: "Elixer_Soup", size: "10"}, {word: "Charts", size: "10"}, 
+    {word: "Chu_Jelly", size: "20"}];
+
+    var fourSwordWords = [{word: "Lantern", size: "20"}, {word: "Force_Fairy", size: "10"}, {word: "Blue_Bracelet", size: "10"}, {word: "Moon_Pearl", size: "10"}, {word: "Carrot", size: "10"}, {word: "Four_Sword", size: "20"}];
+
+    var minishWords = [{word: "Smiths_Sword", size: "10"}, {word: "Broken_Picori_Blade", size: "10"}, {word: "Small_Shield", size: "10"}, {word: "Grip_Ring", size: "10"}, {word: "Kinstone_Bag", size: "10"}, {word: "Remote_Bomb", size: "20"}, 
+    {word: "Gust_Jar", size: "20"}, {word: "Cane_of_Pacci", size: "10"}, {word: "Mole_Mitts", size: "10"}, {word: "Ocarina_of_Wind", size: "10"}, {word: "Flame_Lantern", size: "10"}, {word: "Jabber_Nut", size: "10"}, {word: "MT_Crenel_Mineral_Water", size: "10"}, 
+    {word: "Dog_Food", size: "10"}, {word: "Swordsman_Newsletter", size: "10"}, {word: "Tiger_Scroll", size: "10"}, {word: "Dins_Charm", size: "10"}, {word: "Farores_Charm", size: "10"}, {word: "Nayrus_Charm", size: "10"}, 
+    {word: "Picolyte", size: "10"}, {word: "Brioche", size: "10"}, {word: "Croissant", size: "10"}, {word: "Slice_of_Cake", size: "10"}, {word: "Slice_of_Pie", size: "10"}, {word: "Joy_Butterfly", size: "10"}, {word: "Kinstones", size: "10"}];
+
+    var twilightWords = [{word: "Ordon_Sword", size: "10"}, {word: "Ordon_Shield", size: "10"}, {word: "Zora_Armor", size: "10"}, {word: "Ball_and_Chain", size: "10"}, {word: "Water_Bombs", size: "10"}, {word: "Bomblings", size: "10"}, 
+    {word: "Double_Clawshots", size: "10"}, {word: "Coral_Earring", size: "10"}, {word: "Dominion_Rod", size: "10"}, {word: "Fishing_Rod", size: "20"}, {word: "Hawkeye", size: "10"}, {word: "Horse_Call", size: "10"}, {word: "Ooccoo", size: "10"}, 
+    {word: "Spinner", size: "10"}, {word: "Ghost_Lantern", size: "10"}, {word: "Bee_Larva", size: "10"}, {word: "Worm", size: "10"}, {word: "Hot_Spring_Water", size: "10"}, {word: "Lantern_Oil", size: "10"}, {word: "Great_Fairys_Tears", size: "10"}, 
+    {word: "Nasty_Soup", size: "10"}, {word: "Simple_Soup", size: "10"}, {word: "Good_Soup", size: "10"}, {word: "Superb_Soup", size: "10"}, {word: "Scents", size: "10"}];
+
+    var phantomWords = [{word: "Oshus_Sword", size: "10"}, {word: "Sword_Blade", size: "10"}, {word: "Phantom_Sword", size: "10"}, {word: "Phantom_Hourglass", size: "10"}, {word: "Purple_Potion", size: "30"}, {word: "Yellow_Potion", size: "30"}, 
+    {word: "Cyclone_Slate", size: "10"}, {word: "Sand_of_Hours", size: "10"}, {word: "Bombchi_Bag", size: "10"}, {word: "Big_Catch_Lure", size: "10"}];
+
+    var spiritWords = [{word: "Whirlwind", size: "10"}, {word: "Whip", size: "20"}, {word: "Bow_of_Light", size: "30"}, {word: "Sand_Wand", size: "10"}, {word: "Spirit_Flute", size: "10"}, {word: "Recruits_Sword", size: "10"}, {word: "Lokomo_Sword", size: "10"}, 
+    {word: "Shield_of_Antiquity", size: "10"}, {word: "Recruit_Uniform", size: "10"}, {word: "Engineers_Clothes", size: "10"}, {word: "Stamp_Book", size: "10"}, {word: "Rabbit_Net", size: "10"}, {word: "Swordmans_Scroll", size: "10"}];
+
+    var skywardWords = [{word: "Practice_Sword", size: "10"}, {word: "Goddess_Sword", size: "10"}, {word: "Goddess_Longsword", size: "10"}, {word: "Goddess_White_Sword", size: "10"}, {word: "Adventure_Pouch", size: "10"}, {word: "Sailcloth", size: "10"}, 
+    {word: "Knights_Uniform", size: "10"}, {word: "Digging_Mitts", size: "10"}, {word: "Mogma_Mitts", size: "10"}, {word: "Goddess_Harp", size: "10"}, {word: "Water_Dragons_Scale", size: "10"}, {word: "FireShield_Earrings", size: "10"}, 
+    {word: "Banded_Shield", size: "10"}, {word: "Braced_Shield", size: "10"}, {word: "Reinforced_Shield", size: "10"}, {word: "Fortified_Shield", size: "10"}, {word: "Sacred_Shield", size: "10"}, {word: "Divine_Shield", size: "10"}, 
+    {word: "Goddess_Shield", size: "10"}, {word: "Air_Potion", size: "10"}, {word: "Revitalizing_Potion", size: "10"}, {word: "Sacred_Water", size: "10"}, {word: "Stamina_Potion", size: "10"}, {word: "Guardian_Potion", size: "10"}, 
+    {word: "Hot_Pumpkin_Soup", size: "10"}, {word: "Cold_Pumpkin_Soup", size: "10"}, {word: "Mushroom_Spores", size: "10"}, {word: "Glittering_Spores", size: "10"}, {word: "Cursed_Medal", size: "10"}, {word: "Rupee_Medal", size: "10"}, 
+    {word: "Treasure_Medal", size: "10"}, {word: "Life_Medal", size: "10"}, {word: "Heart_Medal", size: "10"}, {word: "Bug_Medal", size: "10"}, {word: "Potion_Medal", size: "10"}, {word: "Scattershot", size: "10"}, 
+    {word: "Beetle", size: "10"}, {word: "Iron_Bow", size: "10"}, {word: "Sacred_Bow", size: "10"}, {word: "Gust_Bellows", size: "10"}];
+
+    var albwWords = [{word: "Foul_Fruit", size: "10"}, {word: "Hint_Glasses", size: "10"}, {word: "Sand_Rod", size: "10"}, {word: "Scoot_Fruit", size: "10"}, {word: "Tornado_Rod", size: "10"}, {word: "Apple", size: "10"}, {word: "Captains_Sword", size: "10"}, 
+    {word: "Master_Sword_Lv2", size: "10"}, {word: "Master_Sword_Lv3", size: "10"}, {word: "Ravios_Bracelet", size: "10"}, {word: "Bee_Badge", size: "10"}, {word: "Stamina_Scroll", size: "10"}, {word: "Bell", size: "10"}];
+
+    var triHerosWords = [{word: "Costumes", size: "10"}, {word: "Fire_Gloves", size: "10"}, {word: "Gripshot", size: "10"}, {word: "Water_Rod", size: "10"}, {word: "Camera", size: "20"}];
+
+    var botwWords = [{word: "Magnesis", size: "10"}, {word: "Cryonis", size: "10"}, {word: "Master_Cycle_Zero", size: "10"}, {word: "Sheikah_Slate", size: "10"}, {word: "Paraglider", size: "10"}, {word: "Miphas_Grace", size: "10"}, {word: "Revalis_Gale", size: "10"}, 
+    {word: "Daruks_Protection", size: "10"}, {word: "Armor", size: "10"}, {word: "Food", size: "10"}, {word: "Shock_Arrow", size: "10"}, {word: "Ancient_Arrow", size: "10"}, {word: "Fairy_Tonic", size: "10"}, {word: "Enduring_Elixer", size: "10"}, {word: "Energizing_Elixer", size: "10"}, 
+    {word: "Hasty_Elixer", size: "10"}, {word: "Mighty_Elixer", size: "10"}, {word: "Tough_Elixer", size: "10"}, {word: "Chilly_Elixer", size: "10"}, {word: "Electro_Elixer", size: "10"}, {word: "Fireproof_Elixer", size: "10"}, {word: "Spicy_Elixer", size: "10"}];
+
+    
+    // set the dimensions and margins of the graph
+    var margin = {top: 20, right: 20, bottom: 20, left: 20},
+        width = 800 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
+    
+    // append the svg object to the body of the page
+    var svg = d3.select("#my_dataviz").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+    
+    
+
+    // A function that create / update the plot for a given variable:
+ function update(data) {
+
+ // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+    // Wordcloud features that are different from one word to the other must be here
+    var layout = d3.layout.cloud()
+      .size([width, height])
+      .words(data.map(function(d) { return {text: d.word, size:d.size}; }))
+      .padding(20)        //space between words
+      //.rotate(function() { return ~~(Math.random() * 2) * 90; }) //rotates some words 90
+      .fontSize(function(d) { return d.size; })      // font size of words
+      .on("end", draw);
+    layout.start();
+    
+    // This function takes the output of 'layout' above and draw the words
+    // Wordcloud features that are THE SAME from one word to the other can be here
+    function draw(words) {
+      
+        // map to data
+        var cloud = svg.selectAll("g text")
+                        .data(words, function(d) { return d.text; })
+        
+        cloud.enter()
+        .append("g")
+          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+          .selectAll("text")
+            .data(words)
+          .enter().append("text")
+            .style("font-size", function(d) { return d.size; })
+            .style("fill", "#797b44")
+            .attr("text-anchor", "middle")
+            .style("font-family", "Times New Roman", "Times", "serif")
+            .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; });
+
+            // remove the group that is not present anymore
+        cloud.exit()
+        .remove() 
+    }
+
+ }
+
+    // Initialize the plot with the first dataset
+    update(zelda1Words)
+        
+        </script>
+        
+    </body>
+    
+</html>

@@ -1,0 +1,338 @@
+/** Grid system - https://www.w3schools.com/css/css_rwd_grid.asp **/
+* {
+    box-sizing: border-box;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+ 
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+    /*border: 1px solid red; */
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/** Image - https://www.w3schools.com/css/css_rwd_grid.asp **/   
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/** Overflow (for tables) - https://www.w3schools.com/howto/howto_css_table_responsive.asp **/
+.overflow {
+    overflow-x:auto;
+}
+
+table, th, td {
+    border:1px solid #797b44;
+    padding: 3px;
+    color: #112A46;
+  }
+  
+  th, td {
+    text-align: center;
+  }
+
+  a {
+    color: #2A731B
+  }
+
+  a:visited {
+    color:#672E00
+  }
+
+body{
+    background-color: #E6D1AC;
+}
+
+h1, h2, h3, p, i, label {
+    color:#112A46;
+}
+
+h1, h2, h3{
+    text-align:center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h3{
+  text-decoration-line: underline;
+  text-decoration-color: #112A46;
+  text-decoration-style: solid;
+}
+
+hr {
+  width: 50%;
+  border-color: #85674e;
+  border-style:groove;
+}
+
+p{
+  font-size: 17px;
+}
+
+button {
+  color:#07182c;
+  background-color:#fff6e7;
+  filter: drop-shadow(1px 1px 2px #353834);
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+button:hover {
+  color:#fff6e7; 
+  background-color:#112A46;
+}
+
+.button-grouping {
+  border: 3px solid #797b44; 
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #92945d;
+   height: min-content;
+   width: fit-content;
+   filter: drop-shadow(2px 2px 3px #353834);
+}
+
+.heading{
+  text-decoration-line: underline;
+  text-decoration-color: #112A46;
+  text-decoration-style: solid;
+}
+
+.paragraph-border{
+    border: 3px solid #797b44;
+    padding: 6px;
+    border-radius: 5px;
+    background-color: #E6D1AC;
+    filter: drop-shadow(6px 6px 8px #353834);
+}
+
+.asterix-border p{
+    border: 3px solid #abad6f;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #797b44;
+    color: #f6f6ec;
+    filter: drop-shadow(4px 4px 5px #353834);
+}
+
+.asterix-border i{ /*without this, the italics in the asterix-border class have the normal text color for some reason */
+  color: #f6f6ec;
+}
+
+.note-border p{
+  border: 3px solid #abad6f;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #797b44;
+    color: #f6f6ec;
+    filter: drop-shadow(4px 4px 5px #353834);
+    width: 40%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  /*padding: 20px; */
+}
+
+.center-vert-horiz{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/*i:hover {
+    opacity: 0.5;
+  }
+
+  @keyframes moveToRight {
+    from {
+       transform: translateX(0px);
+     }
+    to {
+       transform: translateX(300px);
+     }
+   }
+   .anim {
+    animation: moveToRight 2s ease-in-out;
+    animation-delay: 1000ms;
+  } */
+
+  /* for responsive video */
+  .container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  }
+  
+  /* Then style the iframe to fit in the container div with full height and width */
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .triforce {
+    margin: 50px;
+    content: "";
+    position: relative;
+    width: 0px;
+    height: 0px;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 104px solid #ffbc00;
+    filter: blur(4px);
+    filter: drop-shadow(2px 2px 12px #FFF8EA); 
+    animation-name: example;
+      animation-duration: 5s;
+      animation-iteration-count: 1;
+  }
+  
+  .triforce:before {
+    content: "";
+    position: absolute;
+    display: block;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 104px solid #ffbc00;
+    filter: blur(4px);
+    filter: drop-shadow(2px 2px 12px #FFF8EA);
+    top: 104px;
+    left: -120px;
+    animation-name: example;
+      animation-duration: 5s;
+      animation-iteration-count: 1;
+  } 
+  .triforce:after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 104px solid #ffbc00;
+    filter: blur(4px);
+    filter: drop-shadow(2px 2px 12px #FFF8EA);
+    top: 104px;
+    animation-name: example;
+      animation-duration: 5s;
+      animation-iteration-count: 1;
+  } 
+  
+  
+  @keyframes example {
+      0% {transform-origin: 50px 50px;transform:rotateZ(0deg) scale(.01);}
+      100% {transform: rotateZ(360deg);}
+  }
+
+  .align { /* aligns triforce */
+    width: 412px;
+    margin: auto auto 65px;
+    box-sizing: border-box;
+    filter: brightness(100%);
+}
+
+  /*navigation bar https://www.w3schools.com/howto/howto_js_topnav.asp */
+  /* Add a black background color to the top navigation */
+.topnav {
+    background-color: #797b44;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f6f6ec;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 19px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #84997b;
+    color: #f6f6ec;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #85674e;
+    color: #f6f6ec;
+  }
+
+  /* Tooltip container */
+.mytooltip {
+  position: relative;
+  display: inline-block;
+  margin: 1%;
+  /*border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.mytooltip .mytooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #797b44;
+  color: #f6f6ec;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+   /* To set the top position of the tooltip */
+   position: absolute;
+   z-index: 1;
+   bottom: 125%;
+
+   left: 60%;
+   margin-left: -65px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.mytooltip:hover .mytooltiptext {
+  visibility: visible;
+}
+
+i:hover {
+  color: #274E7A;
+}
+
+  #classes {
+    color: #112A46
+  }
+
+  
+
+  

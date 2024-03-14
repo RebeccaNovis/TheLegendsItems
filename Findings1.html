@@ -1,0 +1,448 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Required for responsive websites -->
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>            
+        <title>Pie Chart</title>
+        
+        <meta charset="utf-8">
+
+        <!-- Load d3.js -->
+        <script src="https://d3js.org/d3.v4.js"></script>
+
+        <script src="https://kit.fontawesome.com/f3177059a0.js" crossorigin="anonymous"></script>
+         <link rel='stylesheet' href='MobileNarrStyle.css'> 
+    </head>
+    <body>
+        <div class = 'row'>
+            <div class = 'col-12'>
+              <div class = 'heading'>
+                <h1>
+                    The Legends' Items
+                </h1>
+            </div>
+            
+                <div class="topnav">
+                    <a href="index.html">Home</a>
+                    <a class="active" href="#findings">Number of Items</a>
+                    <a href="Findings2.html">Frequency of Items</a>
+                    <a href="Sources.html">Sources</a>
+                    <!-- <a href="#about">About</a> -->
+                  </div>
+              </div>
+        </div>
+        
+        <div class = 'row'>
+            <div class = 'col-12'>
+                <h2>The Number of Items in Each Game</h2>
+            </div>  
+        </div>
+        
+        <div class = 'row'>
+            <div class = 'col-6'>
+              
+                <div class = 'button-grouping'>
+                  <button onclick="update(totalItems)">Total Items</button>
+                  <button onclick="update(newItems)">New Items</button>
+                  <button onclick="update(laterReusedItems)">Reused Items</button>
+                  <button onclick="update(repeatItems)">Repeated Items</button>
+                 </div>
+
+                    <div class = 'overflow'>
+                      <!-- Create a div where the graph will take place -->
+                    <div id="my_dataviz" ></div>
+               </div>
+            </div>
+
+            <div class = 'col-6'>
+              <div  class='row'>
+                <div class='col-2'>
+                    <label>Sort By Total Number of Items</label>
+                </div>
+                <div class='col-4'>
+                    <select id='totalItemsSort'>
+                        <option value=''></option>
+                        <option value='ASC'>Ascending</option>
+                        <option value='DESC'>Descending</option>
+                    </select>
+                </div>
+            
+                <div class='col-2'>
+                    <label>Sort By Number of New Items</label>
+                </div>
+                <div class='col-4'>
+                    <select id='newItemsSort'>
+                        <option value=''></option>
+                        <option value='ASC'>Ascending</option>
+                        <option value='DESC'>Descending</option>
+                    </select>
+                </div>
+            </div>
+        
+            <div  class='row'>
+                <div class='col-2'>
+                    <label>Sort By Number of Repeated Items</label>
+                </div>
+                <div class='col-4'>
+                    <select id='repeatItemSort'>
+                        <option value=''></option>
+                        <option value='ASC'>Ascending</option>
+                        <option value='DESC'>Descending</option>
+                    </select>
+                </div>
+
+                <div class='col-2'>
+                    <label>Sort By Number of Items That Are Later Reused</label>
+                </div>
+                <div class='col-4'>
+                    <select id='laterReusedSort'>
+                        <option value=''></option>
+                        <option value='ASC'>Ascending</option>
+                        <option value='DESC'>Descending</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class='row'>
+                <div class='col-12'>
+                    <button id='search'>Load Table</button>
+                </div>
+            </div>
+        
+            <div class = 'overflow'>
+              <div id='classes'>
+                  
+              </div>
+             </div>  
+        
+             </div>
+        </div>
+
+        <hr/>
+
+        <div class = 'row'>
+          <div class = 'col-12'>
+            <h2>Explanation</h2>
+          </div>
+        </div>
+
+        <div class = 'row'>
+          <div class = 'col-6'>
+            <h3>Pie Chart </h3>
+              <div class = "paragraph-border">
+                  <p>
+                      <b>What Is This Pie Chart Showing?</b>
+                  </p>
+                  <p> 
+                    Each pie chart illustrates the number of items each game has in a given category. Total Items is self explanatory, 
+                    it’s the total number of items each game contains. New Items illustrates the number of new/original items each game had.* 
+                    Reused Items provides a graph that shows how many of each game’s new games were later reused in another <i>Zelda</i> game.* 
+                    Repeated Items illustrates how many of each game’s total items originated in an earlier game.
+                  </p>
+                  <p>
+                    Each pie chart provides a good visualization of the difference in the number of items each game contains for each category.
+                    At a glance, we can easily see how each game compares to one another; which games dominate by having significanty more items, 
+                    and which games find themselves lacking in a particular category of items by appearing as only a sliver out of the whole graph. 
+                  </p>
+                  <div class = "asterix-border">
+                    <p>
+                        <b>*</b>Since <i>Oracle of Seasons</i> and <i>Oracle of Ages</i> released at the same time as a sort of set, I counted the new items that 
+                        appeared in both games as new for each, and I also didn’t count these shared items as reused unless they were also used in 
+                        another future game.
+                    </p>
+                  </div>
+              </div>
+              <br>
+              <div class = "paragraph-border">
+                  <p>
+                    <b>What Can We Draw From This?</b>
+                  </p>
+                  <p> 
+                    From these pie charts, we can start to see patterns. For example, we can see that <i>Zelda</i> games typically have at least 20 items, with only two exceptions.*   
+                  </p>
+                  <p>
+                    I also think it’s interesting that <i>Skyward Sword</i> introduces 40 new items, putting it alongside <i>Ocarina of Time</i> and 
+                    <i>A Link to the Past</i> in that category. Yet, <i>Skyward Sword</i> doesn’t have any items reused in later games, while 
+                    <i>Ocarina of Time</i> and <i>A Link to the Past</i> both dominate the Reused Items graph. Obviously one main cause of this is 
+                    that <i>Skyward Sword</i> only has three games following it, while the other two were released much earlier in the series’ history. 
+                    Still, I think this gives some insight into the game and its priorities. From this visualization, <i>Skyward Sword</i> seems to 
+                    be very interested in using items as a way to mix up the <i>Zelda</i> series’ formula. 
+                  </p>
+                  <p>
+                    We can also see how ingrained this practice of reusing items has become throughout the <i>Zelda</i> series, as every game aside 
+                    from the original (obviously) has made use of previously seen items. With such a longstanding history tradition of reusing items, 
+                    would a <i>Zelda</i> game even feel like a <i>Zelda</i> game without the inclusion of old favorites? 
+                  </p>
+                  <div class = "asterix-border">
+                    <p>
+                        <b>*</b><i>Tri Force Heroes</i> technically has a lot more items, which come in the form of the many different costumes you 
+                        can acquire throughout the game. However, I simplified this large swath of items down to just one called “Costumes”. 
+                    </p>
+                  </div>
+                </div>
+          </div> 
+          <div class = 'col-6'>
+            <h3>Table</h3>
+            <div class = "paragraph-border">
+              <p>
+                <b>What Is This Table Showing?</b>
+              </p>
+              <p>
+                This table is a different way to display the number of items in each game. The default way the table loads is with each game in 
+                chronological order of when the games were released, starting with <i>The Legend of Zelda</i> and ending with 
+                <i>Breath of the Wild</i>. However, the table can also be sorted in ascending or decending order of each category of items: Total Items,
+                New Items, Reused Items, and Repeated Items. 
+              </p>
+              <p>
+                Just as in the pie chart, Total Items reveals the total number 
+                of items each game contains, New Items illustrates the number of items originating in each game,
+                Reused Items shows how many of each game’s new games were later reused in another game in the series, 
+                and Repeated Items illustrates how many of each game’s total items originated in an earlier game.
+              </p>
+              <p>
+                In contrast to the pie chart however, you can compare the exact values for each game and each category of items at the same time.
+                The ablity to sort the table also provides a better look at the exact ranking of each game in each item category.
+              </p>
+            </div>
+            <br>
+            <div class = "paragraph-border">
+              <p>
+                <b>What Can We Draw From This?</b>
+              </p>
+              <p>
+                This table offers a different look at the same data shown in the pie chart. Again, by changing the sorting of the table, we can more easily see 
+                exactly how the number of items in each game compares to one another. 
+              </p>
+              <p>
+                This table also allows a better look at some of the less extreme differences, as well as the similarities between games.
+                Also, after sorting the table, you can easily see when two or more games have the same number of items in a specific category, 
+                and then see how they compare in other areas.   
+              </p>
+              <p>
+                For example, <i>Oracle of Ages</i> and <i>A Link Between Worlds</i> have the same number of total items. However, <i>Oracle of Ages</i> 
+                introduces over twice as many new items as <i>A Link Between Worlds</i>, with <i>Ages'</i> 29 compared to <i>Worlds'</i> 13. 
+                When it comes to repeat items from other games though, <i>A Link Between Worlds</i> comes ahead with 33 items, while <i>Oracle of Ages</i> 
+                only contains 17 repeated items. This provides a clear look at the priorities for each game. Despite both games having the same total 
+                number of items, <i>Oracle of Ages</i> seems to prioritize new items, while <i>A Link Between Worlds</i> appears to prioritize the usage of 
+                old classics. 
+              </p>
+              <p>
+                This makes sense, as <i>A Link Between Worlds</i> drew heavy inspiration from the earlier title <i>A Link to the Past</i>. 
+                <i>Worlds</i> included and took inpiration from many aspects of <i>A Link to the Past</i>. So while <i>Worlds</i> did introduce new features
+                and items, much of its charm came from seeing aspects of one of the most iconic and series defining titles reworked with more modern technology 
+                and ideas.
+              </p>
+              <p>
+                Meanwhile, <i>Oracle of Ages</i> (and by extension its partner game <i>Oracle of Seasons</i>) was focused on providing new, unique items, 
+                while still including some older ones too. I think part of this may be because <i>Ages</i> and <i>Seasons</i> were the first 2D <i>Zelda</i> games
+                since the series made the jump to 3D. Considering that the previous two games, <i>Ocarina of Time</i> and <i>Majora's Mask</i> were markedly unique 
+                from previous <i>Zelda</i> games with their new graphics and gameplay style, the developers for <i>Zelda's</i> first games returning to 2D likely
+                wanted to find another way to make the game new and refreshing. And in <i>Zelda</i> games, new items can mean new puzzles, one of the series' 
+                largest draws.
+              </p>
+            </div>
+          </div> 
+      </div>
+      <hr>
+      <div class = 'row'>
+        <div class = 'col-12'>
+            <div class = 'center'>
+                <div class = 'mytooltip'>
+                    <a href="index.html"> <i class="fa-solid fa-circle-arrow-left fa-xl"></i> </a>
+                    <span class="mytooltiptext">Previous Page</span>
+                </div>
+                
+                <div class = 'mytooltip'>
+                    <a href="Findings2.html"> <i class="fa-solid fa-circle-arrow-right fa-xl"></i> </a> 
+                    <span class="mytooltiptext">Next Page</span>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+<script>
+
+        // set the dimensions and margins of the graph
+        var width = 450;
+        var height = 450;
+        var margin = 40;
+        
+        // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+        var radius = Math.min(width, height) / 2 - margin;
+        
+        // append the svg object to the div called 'my_dataviz'
+        var svg = d3.select("#my_dataviz")
+          .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        
+        // create 2 data_set
+        var totalItems = [{game: "The Legend of Zelda", numItems:27}, {game: "Zelda II: The Adventure of Link", numItems:9}, {game:"A Link to the Past", numItems:50}, {game:"Link's Awakening", numItems:27}, {game:"Ocarina of Time", numItems:58}, {game:"Majora's Mask", numItems:36}, {game:"Oracle of Seasons", numItems:44}, {game:"Oracle of Ages", numItems:46}, {game:"Wind Waker", numItems:51}, {game:"Four Swords Adventures", numItems:22}, {game:"Minish Cap", numItems:52}, {game:"Twilight Princess", numItems:54}, {game:"Phantom Hourglass", numItems:26}, {game:"Spirit Tracks", numItems:26}, {game:"Skyward Sword", numItems:64}, {game:"A Link Between Worlds", numItems:46}, {game:"Tri Force Heroes", numItems:12}, {game:"Breath of the Wild", numItems:39}];
+        var newItems = [{game: "The Legend of Zelda", numItems:27}, {game: "Zelda II: The Adventure of Link", numItems:5}, {game:"A Link to the Past", numItems:40}, {game:"Link's Awakening", numItems:8}, {game:"Ocarina of Time", numItems:39}, {game:"Majora's Mask", numItems:7}, {game:"Oracle of Seasons", numItems:24}, {game:"Oracle of Ages", numItems:29}, {game:"Wind Waker", numItems:25}, {game:"Four Swords Adventures", numItems:6}, {game:"Minish Cap", numItems:26}, {game:"Twilight Princess", numItems:25}, {game:"Phantom Hourglass", numItems:10}, {game:"Spirit Tracks", numItems:13}, {game:"Skyward Sword", numItems:40}, {game:"A Link Between Worlds", numItems:13}, {game:"Tri Force Heroes", numItems:5}, {game:"Breath of the Wild", numItems:23}];
+        var repeatItems = [{game: "The Legend of Zelda", numItems:0}, {game: "Zelda II: The Adventure of Link", numItems:4}, {game:"A Link to the Past", numItems:10}, {game:"Link's Awakening", numItems:19}, {game:"Ocarina of Time", numItems:19}, {game:"Majora's Mask", numItems:29}, {game:"Oracle of Seasons", numItems:20}, {game:"Oracle of Ages", numItems:17}, {game:"Wind Waker", numItems:26}, {game:"Four Swords Adventures", numItems:16}, {game:"Minish Cap", numItems:26}, {game:"Twilight Princess", numItems:29}, {game:"Phantom Hourglass", numItems:16}, {game:"Spirit Tracks", numItems:13}, {game:"Skyward Sword", numItems:24}, {game:"A Link Between Worlds", numItems:33}, {game:"Tri Force Heroes", numItems:7}, {game:"Breath of the Wild", numItems:16}];
+        var laterReusedItems = [{game: "The Legend of Zelda", numItems:16}, {game: "Zelda II: The Adventure of Link", numItems:3}, {game:"A Link to the Past", numItems:26}, {game:"Link's Awakening", numItems:3}, {game:"Ocarina of Time", numItems:20}, {game:"Majora's Mask", numItems:2}, {game:"Oracle of Seasons", numItems:3}, {game:"Oracle of Ages", numItems:2}, {game:"Wind Waker", numItems:5}, {game:"Four Swords Adventures", numItems:2}, {game:"Minish Cap", numItems:2}, {game:"Twilight Princess", numItems:1}, {game:"Phantom Hourglass", numItems:2}, {game:"Spirit Tracks", numItems:2}, {game:"Skyward Sword", numItems:0}, {game:"A Link Between Worlds", numItems:0}, {game:"Tri Force Heroes", numItems:1}, {game:"Breath of the Wild", numItems:0}];
+        
+        
+        // set the color scale
+        var color = d3.scaleOrdinal()
+          .domain(["a", "b", "c", "d", "e", "f"])
+          .range(["#8B7B54", "#f8d683", "#939898", "#835d46", "#2c3934"]);
+    
+          
+        // create a tooltip
+      var Tooltip = d3.select("#my_dataviz")
+        .append("div")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "#797b44")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px");
+    
+      // Three function that change the tooltip when user hover / move / leave a cell
+      var mouseover = function(d) {
+        Tooltip
+          .style("opacity", 1);
+        //d3.select(this)
+          //.style("stroke", "black")
+          //.style("opacity", 1) 
+      }
+      var mousemove = function(d) {
+        Tooltip
+          .html("Game: " + d.data.value.game + "<br>Number of Items: " + d.data.value.numItems)
+          .style("color", "#f6f6ec")
+          .style("left", (d3.mouse(this)[0]+70) + "px")
+          .style("top", (d3.mouse(this)[1]) + "px");
+      }
+      var mouseleave = function(d) {
+        Tooltip
+          .style("opacity", 0);
+        //d3.select(this)
+          //.style("stroke", "white")
+            //.style("stroke-width", "2px")
+            //.style("opacity", 1)
+          //.style("opacity", 0.8) 
+      }
+     
+    
+        
+        // A function that create / update the plot for a given variable:
+        function update(data) {
+        
+          // Compute the position of each group on the pie:
+          var pie = d3.pie()
+            .value(function(d) {return d.value.numItems; })
+            .sort(function(a, b) { console.log(a) ; return d3.ascending(a.key, b.key);} ) // This make sure that group order remains the same in the pie chart
+          var data_ready = pie(d3.entries(data));
+        
+          // map to data
+          var u = svg.selectAll("path")
+            .data(data_ready);
+        
+          // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+          u
+            .enter()
+            .append('path')
+            .merge(u)
+            .transition()
+            .duration(1000)
+            .attr('d', d3.arc()
+              .innerRadius(0)
+              .outerRadius(radius)
+            )
+            .attr('fill', function(d){ return(color(d.data.key)) })
+            .attr("stroke", "white")
+            .style("stroke-width", "2px")
+            .style("opacity", 1);
+    
+            
+          u
+          .on("mouseover", mouseover)
+          .on("mousemove", mousemove)
+          .on("mouseleave", mouseleave);
+        
+          // remove the group that is not present anymore
+          u
+            .exit()
+            .remove();
+        
+        }
+        
+        // Initialize the plot with the first dataset
+        update(totalItems);
+        update(totalItems);
+
+        //
+        //
+        //script for generating table
+
+        const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+            document.getElementById('search').addEventListener('click', (event) => {
+                const gameItemsUrl = 'http://127.0.0.1:3000';
+                let ajaxParameters = {};
+
+                /*
+                if (document.getElementById('gameSelect').value.length !== 0) {
+                    ajaxParameters.gameSelect = document.getElementById('gameSelect').value;
+                } */
+
+                if (document.getElementById('totalItemsSort').value.length !== 0) { 
+                    ajaxParameters.totalItemsSort = document.getElementById('totalItemsSort').value;
+                }
+                if (document.getElementById('newItemsSort').value.length !== 0) { 
+                    ajaxParameters.newItemsSort = document.getElementById('newItemsSort').value;
+                }
+                if (document.getElementById('repeatItemSort').value.length !== 0) { 
+                    ajaxParameters.repeatItemSort = document.getElementById('repeatItemSort').value;
+                } 
+                if (document.getElementById('laterReusedSort').value.length !== 0) { 
+                    ajaxParameters.laterReusedSort = document.getElementById('laterReusedSort').value;
+                }
+                
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    let displayTable = '<table>' +
+                                            '<thead>' +
+                                                '<tr>' +
+                                                    '<th width="28%">Game</th>' +
+                                                    '<th width="18%">Total Number of Items</th>' +
+                                                    '<th width="18%">Number of New Items</th>' +
+                                                    '<th width="18%">Number of Repeated Items</th>' +
+                                                    '<th width="18%">Number of Items That Are Later Reused</th>' + 
+                                                '</tr>' +
+                                            '</thead>' +
+                                            '<tbody>';
+                    if (typeof this.responseText !== 'undefined' && this.responseText.length > 0) {
+                        let ajaxResult = JSON.parse(this.responseText);
+                        if (typeof ajaxResult.classes !== 'undefined') {
+                            for (let x = 0; x < ajaxResult.classes.length; x++) {
+                                displayTable += '<tr>' +
+                                    '<td>' + ajaxResult.classes[x].game + '</td>' +
+                                    '<td>' + ajaxResult.classes[x].totalItems + '</td>' +
+                                    '<td>' + ajaxResult.classes[x].newItems + '</td>' +
+                                    '<td>' + ajaxResult.classes[x].repeatItems + '</td>' +
+                                    '<td>' + ajaxResult.classes[x].laterReusedItems + '</td>' +
+                                '</tr>';
+                            }
+                        }
+                    }
+                    displayTable += '</tbody></table>';
+                    document.getElementById('classes').innerHTML = displayTable;
+                }
+                xhttp.open("GET", gameItemsUrl + (!isEmpty(ajaxParameters) ? '?' + new URLSearchParams(ajaxParameters) : ''));
+                console.log(gameItemsUrl + (!isEmpty(ajaxParameters) ? '?' + new URLSearchParams(ajaxParameters) : ''));
+                xhttp.send();
+            });
+        
+        </script>
+     
+     
+
+
+    </body>
+    
+</html>
